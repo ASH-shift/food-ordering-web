@@ -1,0 +1,26 @@
+/* Centralized theme variables with light/dark support */
+:root {
+  --bg: #f6f7fb;
+  --card-bg: #ffffff;
+  --text: #0f1724;
+  --muted: #6b7280;
+  --input-bg: #f8fafc;
+  --border: #e6e9ef;
+  --primary: #2563eb;
+  --primary-contrast: #ffffff;
+  --radius: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b1220;
+    --card-bg: #0f1724;
+    --text: #e6eef8;
+    --muted: #9aa6b6;
+    --input-bg: #0b1624;
+    --border: #1f2937;
+    --primary: #60a5fa;
+    --primary-contrast: #02204a;
+    --radius: 10px;
+  }
+}
