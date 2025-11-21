@@ -4,24 +4,24 @@ const { v4: uuid } = require('uuid');
 
 async function createFood(req, res) {
     try {
-        console.log(req.foodPartner);
-        console.log(req.body);
-        console.log(req.file);
-
         // Upload file/video to ImageKit
         const fileUploadResult = await storageService.uploadFile(
             req.file.buffer,
             uuid()
         );
 
-          console.log(JSON.stringify(fileUploadResult, null, 4));
+        // Save to MongoDB (link food to the food partner)
+    const foodItem = await foodModel.create({
+    video: fileUploadResult.url,
+    name: req.body.name,
+    description: req.body.description,
+    foodPartner: req.foodPartner._id   // <--- CORRECT FIX
+});
 
-        console.log("Uploaded File Details:", fileUploadResult);
 
-        // Return full details to Postman
         return res.json({
             message: "Food item created successfully",
-            uploadDetails: fileUploadResult
+            foodItem: foodItem
         });
 
     } catch (err) {
@@ -29,6 +29,7 @@ async function createFood(req, res) {
         return res.status(500).json({ error: "Internal server error" });
     }
 }
+
 
 async function getFoodItems(req, res) {
     const foodItems=await foodModel.find({});

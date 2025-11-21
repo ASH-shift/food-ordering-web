@@ -6,28 +6,32 @@ import axios from 'axios';
 const FoodPartnerLogin = () => {
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const email = e.target.elements['fp-login-email'].value;
-    const password = e.target.elements['fp-login-password'].value;
+  const email = e.target.elements['fp-login-email'].value;
+  const password = e.target.elements['fp-login-password'].value;
 
-    try {
-      const res = await axios.post(
-        'http://localhost:3000/api/auth/foodpartner/login',
-        { email, password },
-        { withCredentials: true }
-      );
+  try {
+    const res = await axios.post(
+      'http://localhost:3000/api/auth/foodpartner/login',
+      { email, password },
+      { withCredentials: true }
+    );
 
-      console.log('Logged in:', res.data);
-      alert('Login successful!');
-      navigate('/');   // redirect after login
+    console.log('Logged in:', res.data);
 
-    } catch (error) {
-      console.error('Error:', error.response?.data || error);
-      alert('Login failed!');
-    }
-  };
+    const id = res.data.foodPartner._id;  // <-- GET ID
+
+    alert('Login successful!');
+    navigate(`/foodpartner/${id}`);       // <-- FIXED !!!
+
+  } catch (error) {
+    console.error('Error:', error.response?.data || error);
+    alert('Login failed!');
+  }
+};
+
 
   return (
     <div className="auth-page">
