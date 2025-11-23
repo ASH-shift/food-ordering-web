@@ -62,13 +62,30 @@
 
 .video-drop {
   flex: 1;
-  padding: 12px;
+  padding: 10px 12px;
   border-radius: 8px;
   border: 1px dashed var(--border);
   background: var(--input-bg);
   color: var(--muted);
   font-size: 13px;
-  text-align: center;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-drop .video-icon {
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  fill: var(--muted);
+}
+
+.video-drop .video-text {
+  color: var(--muted);
+  font-size: 13px;
 }
 
 .video-preview {
@@ -82,6 +99,23 @@
   justify-content: center;
   color: var(--muted);
   font-size: 12px;
+}
+
+.video-preview video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* visually hide native input but keep it accessible */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
 }
 
 .btn-primary {
