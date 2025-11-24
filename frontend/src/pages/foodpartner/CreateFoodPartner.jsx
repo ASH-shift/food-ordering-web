@@ -35,8 +35,11 @@ const CreateFood = () => {
   const onSubmit = async (e) => {
     e.preventDefault()
     const formData=new FormData();
+    
+
     formData.append("name", e.target.name.value);
     formData.append("description", e.target.description.value);
+    formData.append("price", e.target.price.value);
    formData.append("video", e.target.video.files[0]);
 
    const response=await axios.post("http://localhost:3000/api/food", formData, {
@@ -52,6 +55,9 @@ const CreateFood = () => {
         <h2>Create food item</h2>
 
 <form className="create-form" aria-label="Create food form" onSubmit={onSubmit}>
+  <label className="field-label" htmlFor="price">Price (₹)</label>
+<input id="price" name="price" className="text-input" type="number" placeholder="Enter price" />
+
   <div>
     <label className="field-label" htmlFor="name">Name</label>
     <input id="name" name="name" className="text-input" type="text" placeholder="Dish name" />

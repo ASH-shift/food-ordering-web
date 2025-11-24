@@ -8,6 +8,8 @@ import Home from '../pages/general/Home';
 import CreateFood from '../pages/foodpartner/CreateFoodPartner';
 import Profile from '../pages/foodpartner/Profile';
 import Saved from '../pages/general/Saved';
+import Meals from "../pages/general/Meals";
+
 
 const AppRoutes = () => {
   return (
@@ -21,6 +23,10 @@ const AppRoutes = () => {
         <Route path="/create-food" element={<CreateFood/>} />
         <Route path='/foodpartner/:id' element={<Profile/>} />
         <Route path='/saved' element={<Saved/>} />
+        <Route path="/meals" element={<Meals />} />
+
+       
+        
       
       </Routes>
     </Router>

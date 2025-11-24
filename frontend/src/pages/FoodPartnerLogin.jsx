@@ -21,7 +21,8 @@ const handleSubmit = async (e) => {
 
     console.log('Logged in:', res.data);
 
-    const id = res.data.foodPartner._id;  // <-- GET ID
+   const id = res.data.foodPartner.id;
+  // <-- GET ID
 
     alert('Login successful!');
     navigate(`/foodpartner/${id}`);       // <-- FIXED !!!

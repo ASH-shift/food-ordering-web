@@ -38,6 +38,7 @@ async function registerUser(req, res) {
 
 
 // LOGIN USER
+// LOGIN USER
 async function loginUser(req, res) {
     const { email, password } = req.body;
 
@@ -57,6 +58,7 @@ async function loginUser(req, res) {
 
     res.status(200).json({
         message: "Login successful",
+        role: "user",   // 🔥 ADD THIS
         user: {
             id: user._id,
             email: user.email,
