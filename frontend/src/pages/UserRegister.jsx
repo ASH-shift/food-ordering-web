@@ -4,6 +4,7 @@ import "../styles/auth.css";
 import axios from "axios";
 
 const UserRegister = () => {
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -13,24 +14,35 @@ const UserRegister = () => {
     const email = e.target.elements["user-email"].value;
     const password = e.target.elements["user-password"].value;
 
+    console.log("Sending Data →", {
+      fullName: name,
+      email,
+      password
+    });
+
     try {
       const res = await axios.post(
         "http://localhost:3000/api/auth/user/register",
         {
-          fullName: name,   // ✅ matches backend: registerUser expects fullName
+          fullName: name,
           email,
           password,
-        },{
+        },
+        {
           withCredentials: true,
-        });
+        }
+      );
 
-      console.log("Saved:", res.data);
+      console.log("Server Response →", res.data);
+
       alert("User registered successfully!");
-      navigate("/");   // or "/user/login" if you prefer
+      navigate("/");
 
     } catch (error) {
-      console.error("Error:", error.response?.data || error);
-      alert("Registration failed!");
+      console.log("Full Error →", error);
+      console.log("Backend Error →", error.response?.data);
+
+      alert(error.response?.data?.message || "Registration failed!");
     }
   };
 
@@ -39,27 +51,18 @@ const UserRegister = () => {
       <div className="auth-card">
         <h2>Create account</h2>
 
-        <div className="auth-switch">
-          <Link to="/user/register" className="primary">Register as user</Link>
-          <Link to="/foodpartner/register">Register as food partner</Link>
-        </div>
-
         <form className="auth-form" onSubmit={handleSubmit}>
-          <label htmlFor="user-name">Full name</label>
-          <input id="user-name" type="text" placeholder="Your full name" required />
+          <label>Full name</label>
+          <input id="user-name" type="text" required />
 
-          <label htmlFor="user-email">Email</label>
-          <input id="user-email" type="email" placeholder="you@example.com" required />
+          <label>Email</label>
+          <input id="user-email" type="email" required />
 
-          <label htmlFor="user-password">Password</label>
-          <input id="user-password" type="password" placeholder="Create password" required />
+          <label>Password</label>
+          <input id="user-password" type="password" required />
 
-          <button type="submit" className="btn-primary">Register</button>
+          <button type="submit">Register</button>
         </form>
-
-        <p className="auth-note">
-          Already have an account? <Link to="/user/login">Log in</Link>
-        </p>
       </div>
     </div>
   );
