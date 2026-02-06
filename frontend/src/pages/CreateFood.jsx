@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import API from "../utils/api";
+
 import { useNavigate } from "react-router-dom";
 import "../../styles/createFood.css";
 
@@ -24,7 +25,7 @@ const CreateFood = () => {
     formData.append("price", e.target.price.value);
     formData.append("video", e.target.video.files[0]);
 
-    const response = await axios.post("http://localhost:3000/api/food", formData, {
+    const response = await API.post("/api/food", formData, {
       withCredentials: true,
     });
 

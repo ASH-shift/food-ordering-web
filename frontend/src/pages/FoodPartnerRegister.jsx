@@ -1,41 +1,44 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/auth.css';
-import axios from 'axios';
+import API from "../utils/api";
+
 
 
 const FoodPartnerRegister = () => {
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const businessName = e.target.elements['fp-business'].value;
-    const email = e.target.elements['fp-email'].value;
-    const password = e.target.elements['fp-password'].value;
+  const businessName = e.target.elements['fp-business'].value;
+  const email = e.target.elements['fp-email'].value;
+  const password = e.target.elements['fp-password'].value;
 
-    try {
-      const res = await axios.post(
-        'http://localhost:3000/api/auth/foodpartner/register',
-        {
-          name: businessName,   // <-- FIXED to match backend
-          email,
-          password,
-        },
-        {
-          withCredentials: true,
-        }
-      );
+  try {
 
-      console.log('Saved:', res.data);
-      alert('Food partner registered successfully!');
-      navigate('/create-food'); // redirect after success
+    const res = await API.post(
+      "/api/auth/foodpartner/register",   // ✅ Correct endpoint
+      {
+        name: businessName,
+        email,
+        password,
+      },
+      {
+        withCredentials: true,
+      }
+    );
 
-    } catch (error) {
-      console.error('Error:', error.response?.data || error);
-      alert('Registration failed!');
-    }
-  };
+    console.log('Saved:', res.data);
+    alert('Food partner registered successfully!');
+    navigate('/create-food');
+
+  } catch (error) {
+    console.error('Error:', error.response?.data || error);
+    alert('Registration failed!');
+  }
+};
+
 
   return (
     <div className="auth-page">
